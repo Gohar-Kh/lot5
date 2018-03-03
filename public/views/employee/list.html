@@ -1,0 +1,156 @@
+<div>
+
+    <div ng-show="showBigDiv">
+
+        <div class="container" style="background-color: #EFEFEF;">
+
+            <h2>Student list  <button type="button" class="btn btn-info btn-lg" ng-click="showRegDiv()">Create new student</button></h2>
+
+            <table class="table">
+
+                <thead>
+
+                <tr>
+
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                    <th>Salary</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr ng-repeat="x in students">
+
+                    <td>{{x.firstname}}</td>
+                    <td>{{x.lastname}}</td>
+                    <td>{{x.email}}</td>
+                    <td>{{x.salary | currency:'AMD '}}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="viewStudent($index)">View</button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="update($index)">Update</button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="deleteStudent($index)" ng-show="showDelBut">Delete</button>
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="popupDiv" ng-show="regDiv">
+
+            <h3>Create new student</h3>
+
+            <form name="regStudent">
+
+                <label for="firstname">Firstname</label>
+                <input type="text" class="form-control" placeholder="Enter name" name="firstname" required ng-model="regFirstname"><br>
+                <span style="color:red" ng-show="isReqFname && !regFirstname"><b>Firstname is required.</b></span><br>
+
+                <label for="lastname">Lastname</label>
+                <input type="text" class="form-control" placeholder="Enter surname" name="lastname" required ng-model="regLastname"><br>
+                <span style="color:red" ng-show="isReqLname && !regLastname"><b>Lastname is required.</b></span><br>
+
+                <label for="email">Email</label>
+                <input type="email" class="form-control" placeholder="Enter email" name="email" required ng-model="regEmail"><br>
+                <span style="color:red" ng-show="isReqEmail && !regEmail"><b>Email incorrect or empty.</b></span><br>
+
+                <label for="salary">Salary (AMD)</label>
+                <input type="number" class="form-control" placeholder="Enter salary" name="salary" required ng-model="regSalary"><br>
+                <span style="color:red" ng-show="isReqSalary && !regSalary"><b>Salary is required.</b></span><br>
+
+                <label for="salary">Phone (0xxxxxxxx)</label>
+                <input type="tel" pattern="0[0-9]{8}" class="form-control" placeholder="Enter phone number" name="phone" required ng-model="regPhone"><br>
+                <span style="color:red" ng-show="isReqPhone && !regPhone"><b>Phone incorrect or empty.</b></span><br>
+
+                <label for="firstname">Image (URL)</label>
+                <input type="text" class="form-control" placeholder="Enter image url" name="image" required ng-model="regImage"><br>
+                <span style="color:red" ng-show="isReqImage && !regImage"><b>Image URL is required.</b></span><br>
+
+                <div style="margin: 15px 0 0 62%">
+
+                    <button type="button" class="btn btn-primary btn-md" ng-click="saveNewStudent()">Save</button>
+                    <button type="button" class="btn btn-primary btn-md" ng-click="hideRegDiv()">Close</button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+        <div class="popupDiv" ng-show="hideView" style="background-color: bisque;">
+
+            <div style="display: flex;">
+
+                <div>
+
+                    <h4><span style="color: darkblue;">Firstname:</span> {{viewName}}</h4>
+                    <h4><span style="color: darkblue;">Lastname:</span> {{viewLastname}}</h4>
+                    <h4><span style="color: darkblue;">Email:</span> {{viewEmail}}</h4>
+                    <h4><span style="color: darkblue;">Salary:</span> {{viewSalary}}</h4>
+                    <h4><span style="color: darkblue;">Phone:</span> {{viewPhone}}</h4>
+
+                </div>
+
+                <div style="flex: left; margin-left: 22%; width: 32%; height: 32%">
+
+                    <img class="img-thumbnail" width="304" height="236" src="{{studentImgPath}}">
+
+                </div>
+
+            </div>
+
+            <button type="button" style="margin: 15px 0 0 80%" class="btn btn-primary btn-md" ng-click="hideViewDiv()">Close</button>
+
+        </div>
+
+    </div>
+
+    <div class="popupDiv" ng-show="updateDiv" style="background-color: cornflowerblue;">
+
+        <h3>Update</h3>
+
+        <form name="updateStudent">
+
+            <label for="firstname">Firstname</label>
+            <input type="text" class="form-control" placeholder="Enter name" name="firstname" required ng-model="studentFirstname"><br>
+            <span style="color:red" ng-show="isReqFnameUp && !studentFirstname"><b>Firstname is required.</b></span><br>
+
+            <label for="lastname">Lastname</label>
+            <input type="text" class="form-control" placeholder="Enter surname" name="lastname" required ng-model="studentLastname"><br>
+            <span style="color:red" ng-show="isReqLnameUp && !studentLastname"><b>Lastname is required.</b></span><br>
+
+            <label for="email">Email</label>
+            <input type="email" class="form-control" placeholder="Enter email" name="email" required ng-model="studentEmail"><br>
+            <span style="color:red" ng-show="isReqEmailUp && !studentEmail"><b>Email incorrect or empty.</b></span><br>
+
+            <label for="salary">Salary (AMD)</label>
+            <input type="number" class="form-control" placeholder="Enter salary" name="salary" required ng-model="studentSalary"><br>
+            <span style="color:red" ng-show="isReqSalaryUp && !studentSalary"><b>Salary is required.</b></span><br>
+
+            <label for="salary">Phone (0xxxxxxxx)</label>
+            <input type="tel" pattern="0[0-9]{8}" class="form-control" placeholder="Enter phone number" name="phone" required ng-model="studentPhone"><br>
+            <span style="color:red" ng-show="isReqPhoneUp && !studentPhone"><b>Phone incorrect or empty.</b></span><br>
+
+            <label for="firstname">Image (URL)</label>
+            <input type="text" class="form-control" placeholder="Enter image url" name="image" required ng-model="studentImage"><br>
+            <span style="color:red" ng-show="isReqImageUp && !studentImage"><b>Image URL is required.</b></span><br>
+
+            <div style="margin: 15px 0 0 62%">
+
+                <button type="button" class="btn btn-primary btn-md" ng-click="saveUpdateStudent(thisInd)">Save</button>
+                <button type="button" class="btn btn-primary btn-md" ng-click="hideupdateDiv()">Close</button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
